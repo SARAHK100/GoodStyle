@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ko">
+ <head>
+  <title>modal</title>
+  <meta charset="utf-8"/>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <style>
+		*{margin:0; padding:0;}
+		body{margin:0; padding:0;}
+		li{list-style:none;}
+
+		ul{width:980px; margin:50px auto;}
+		ul li{width:320px; display:inline-block;}
+		ul li img{width:100%;}
+
+		#view{width:720px; height:480px; border:5px solid #fff; 
+		position:absolute; left:50%; top:50%; transform:translate(-50%, -50%);
+		box-shadow:10px 10px 10px rgba(0,0,0,0.5); z-index:1;}
+
+		#full{width:100%; height:100%; background-color:rgba(0,0,0,0.5); 
+		position:fixed; left:0; top:0;}
+  </style>
+  <script>
+		$(document).ready(function(){
+			/*01) view, full 영역 숨기기*/
+
+			$("#full, #view").hide();
+			/*
+				02) ul li를 대상으로 설정하고, 클릭하도록 만들기
+				03) 클릭하면 a태그가 작동을 하는데 멈추도록 만들기
+					: return false (해당영역 하단에 사용하기)
+					: 처음부터 작성하면 기능이 멈춰서 수식이 표현되지 않음!
+					: 탭 메뉴가 위로 올라가려고 할때도 해결할 수 있음!
+
+
+				04) view와 full 영역 화면에 보여주기 
+						+ view 영역에 클릭한 이미지가 나타나도록 만들기
+						+ view 영역에 구조를 만들어서 작성하기
+							중요) view가 담아줄 수 있는 태그인지 확인하기
+
+
+						매우중요)
+							현재 클릭한 이미지의 번호가 필요함!
+							: 대상.substring으로 작성하기
+
+						문제)
+							1) 현재 클릭한 li에서 번호 호출하기
+							2) a태그 이용하기
+						
+							3) 현재 this의 a에 접근하여 속성 href까지 확인하기 그리고 substring으로 숫자만 잘라내기!
+							4) 변수에 담아서 alert 창으로 확인해보기
+
+				05) view와 full 영역 클릭하면 사라지게 만들기
+	
+			*/
+			
+			$("ul li").click(function(){
+				/*img/c01.jpg*/
+				var num = $(this).find("a").attr("href").substring(6,7);
+				// alert(num);
+				
+				$("#view").html("<p><img src='img/c0"+num+".jpg' alt='이미지'/></p>");
+
+				$("#full, #view").show();
+				return false;
+			});
+
+			$("#view, #full").click(function(){
+				$("#full, #view").hide();
+			});
+			
+
+		});
+  </script>
+ </head>
+ <body>
+	<div>
+		<ul>
+			<li>
+				<a href="img/c01.jpg" title="이미지1">
+					<img src="img/c01.jpg" alt="이미지1"/>
+				</a>
+			</li>
+			<li>
+				<a href="img/c02.jpg" title="이미지2">
+					<img src="img/c02.jpg" alt="이미지2"/>
+				</a>
+			</li>
+			<li>
+				<a href="img/c03.jpg" title="이미지3">
+					<img src="img/c03.jpg" alt="이미지3"/>
+				</a>
+			</li>
+			<li>
+				<a href="img/c04.jpg" title="이미지4">
+					<img src="img/c04.jpg" alt="이미지4"/>
+				</a>
+			</li>
+			<li>
+				<a href="img/c05.jpg" title="이미지5">
+					<img src="img/c05.jpg" alt="이미지5"/>
+				</a>
+			</li>
+			<li>
+				<a href="img/c06.jpg" title="이미지6">
+					<img src="img/c06.jpg" alt="이미지6"/>
+				</a>
+			</li>
+		</ul>
+	</div>
+	<div id="view">
+	</div>
+	<div id="full">
+	</div>
+ </body>
+</html>
